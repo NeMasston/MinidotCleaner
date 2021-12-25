@@ -17,8 +17,8 @@ MinidotCleaner создаёт ресурспак (настраеваемый) к
 path: 'C:\Users\@user\AppData\Roaming\.vimeworld'
 
 # Исключения (какие персонализации оставить)
-# Названия персонализаций можно посмотреть вызвав программу с параметром -list или запустив файл list.bat
-# java -jar MinidorCleaner.jar --list
+# Названия персонализаций можно посмотреть вызвав программу с параметром --list или запустив файл list.bat
+# java -jar MinidotCleaner.jar --list
 
 exclusions:
   - 'assets/minidot/head/turtlehat.png'
