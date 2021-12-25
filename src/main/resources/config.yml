@@ -1,0 +1,16 @@
+# Путь до папки .vimeworld
+# @user - Переменная автоматически заменяется за имя пользователя
+path: 'C:\Users\@user\AppData\Roaming\.vimeworld'
+
+# Исключения (какие персонализации оставить)
+# Названия персонализаций можно посмотреть вызвав программу с параметром -list или запустив файл list.bat
+# java -jar MinidorCleaner.jar --list
+
+exclusions:
+  - 'assets/minidot/head/turtlehat.png'
+
+# Настройка генерируемого ресурспака
+resourcepack:
+  output: 'Disabled Minidot' # Название архива ресурспака
+  icon: 'default' # Иконка ресурспака (64x64)
+  description: '§cРесурс-пак отключающий §lВСЕ\n§cМодели персонализации VimeWorld' # Описание ресурспака
