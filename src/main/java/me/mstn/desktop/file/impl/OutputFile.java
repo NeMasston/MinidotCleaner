@@ -1,11 +1,13 @@
 package me.mstn.desktop.file.impl;
 
 import me.mstn.desktop.MinidotCleaner;
+import me.mstn.desktop.configuration.ConfigurationModel;
 import me.mstn.desktop.file.AbstractFile;
 import sun.misc.IOUtils;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -14,10 +16,20 @@ public class OutputFile implements AbstractFile {
     private final String fileName;
 
     public OutputFile() {
-        Map<String, String> resourcepack = MinidotCleaner.getConfiguration().getResourcepack();
+        ConfigurationModel configuration = MinidotCleaner.getConfiguration();
+
+        Map<String, String> resourcepack = configuration.getResourcepack();
         String output = resourcepack.get("output");
 
         if (!output.endsWith(".zip")) output += ".zip";
+
+        if (configuration.isInpath()) {
+            String userName = System.getProperty("user.name");
+            output = configuration.getPath()
+                    .replace("@user", userName)
+                    + "\\minigames\\resourcepacks\\"
+                    + output;
+        }
 
         fileName = output;
     }
@@ -27,7 +39,8 @@ public class OutputFile implements AbstractFile {
 
         try {
             List<String> srcFiles = Arrays.asList("pack.mcmeta", "pack.png");
-            FileOutputStream fileOutputStream = new FileOutputStream(fileName);;
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            ;
             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 
             File fileToZip = null;
@@ -39,7 +52,7 @@ public class OutputFile implements AbstractFile {
 
                 byte[] bytes = new byte[1024];
                 int length;
-                while((length = fileInputStream.read(bytes)) >= 0) {
+                while ((length = fileInputStream.read(bytes)) >= 0) {
                     zipOutputStream.write(bytes, 0, length);
                 }
                 fileInputStream.close();
@@ -48,7 +61,7 @@ public class OutputFile implements AbstractFile {
             Iterator entries = new HashSet<>(MinidotCleaner.getModelsList()).iterator();
 
             while (entries.hasNext()) {
-                ZipEntry entry = (ZipEntry)entries.next();
+                ZipEntry entry = (ZipEntry) entries.next();
                 ZipEntry zipEntry = new ZipEntry(entry.getName());
 
                 if (!MinidotCleaner.getConfiguration().getExclusions().contains(entry.getName())) {
@@ -62,9 +75,15 @@ public class OutputFile implements AbstractFile {
 
             zipOutputStream.close();
             fileOutputStream.close();
+
+            MinidotCleaner.getLogger().info("");
+            if (MinidotCleaner.getConfiguration().isInpath()) {
+                MinidotCleaner.getLogger().info("Resourcepack saved to .vimeworld/minigames/resourcepacks");
+            } else {
+                MinidotCleaner.getLogger().info("Resourcepack saved in this directory");
+            }
         } catch (IOException e) {
-            MinidotCleaner.getLogger().severe("Failed to create " + fileName + " file. Error: " + e.getMessage());
-            System.exit(-1);
+            MinidotCleaner.stop(Level.SEVERE, "Failed to create " + fileName + " file. Error: " + e.getMessage());
         }
 
         return fileName;

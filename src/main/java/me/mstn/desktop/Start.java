@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.logging.Level;
 import java.util.logging.LogManager;
 
 public class Start {
@@ -24,7 +25,7 @@ public class Start {
         LogManager.getLogManager().reset();
         MinidotCleaner.getLogger().addHandler(new LoggerHandler());
 
-        MinidotCleaner.getLogger().info("---- STARTING MINIDOTCLEANER 1.0b ----");
+        MinidotCleaner.getLogger().info("---- STARTING MINIDOTCLEANER 1.1b ----");
         MinidotCleaner.getLogger().info("# Find a bug? Report! https://github.com/MVSSTON/MinidotCleaner");
         MinidotCleaner.getLogger().info("# Contact with author - https://vk.me/masston");
         MinidotCleaner.getLogger().info("--------------------------------------");
@@ -37,17 +38,17 @@ public class Start {
         if (!path.toFile().exists()) {
             InputStream inputStream = Start.class.getResourceAsStream("/config.yml");
             Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
-            MinidotCleaner.getLogger().info("Creating configuration file");
+            MinidotCleaner.stop(Level.INFO, "Configuration file has been created, close the program and configure it or start the program again.");
         }
 
         ConfigurationModel configuration = yaml.load(new FileInputStream(path.toFile()));
         MinidotCleaner.setConfiguration(configuration);
 
-        String userName =  System.getProperty("user.name");
+        String userName = System.getProperty("user.name");
         MinidotCleaner.setExtraJarPath(
                 configuration.getPath()
-                    .replace("@user", userName)
-                     + "\\1.8.8\\extra.jar"
+                        .replace("@user", userName)
+                        + "\\1.8.8\\extra.jar"
         );
 
         MinidotCleaner.getModelsList().addAll(

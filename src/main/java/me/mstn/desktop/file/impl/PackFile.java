@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class PackFile implements AbstractFile {
 
@@ -16,7 +17,7 @@ public class PackFile implements AbstractFile {
 
     public PackFile() {
         Map<String, String> resourcepack = MinidotCleaner.getConfiguration().getResourcepack();
-        text = "{\"pack\":{\"pack_format\":1,\"description\":\""+ resourcepack.get("description") +"\"}}";
+        text = "{\"pack\":{\"pack_format\":1,\"description\":\"" + resourcepack.get("description") + "\"}}";
     }
 
     public String create() {
@@ -31,12 +32,10 @@ public class PackFile implements AbstractFile {
             writer.close();
         } catch (FileNotFoundException e) {
             file.delete();
-            MinidotCleaner.getLogger().severe("Failed to locate " + fileName + " file. Error: " + e.getMessage());
-            System.exit(-1);
+            MinidotCleaner.stop(Level.SEVERE, "Failed to locate " + fileName + " file. Error: " + e.getMessage());
         } catch (UnsupportedEncodingException e) {
             file.delete();
-            MinidotCleaner.getLogger().severe(fileName + " using unsupported encoding. Error: " + e.getMessage());
-            System.exit(-1);
+            MinidotCleaner.stop(Level.SEVERE, fileName + " using unsupported encoding. Error: " + e.getMessage());
         }
 
         file.deleteOnExit();

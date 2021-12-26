@@ -11,6 +11,7 @@ import java.util.Map;
 public class ConfigurationModel {
 
     private String path;
+    private boolean inpath;
     private List<String> exclusions;
     private Map<String, String> resourcepack;
 

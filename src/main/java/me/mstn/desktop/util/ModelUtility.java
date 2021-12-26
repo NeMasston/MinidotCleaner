@@ -3,18 +3,14 @@ package me.mstn.desktop.util;
 import lombok.experimental.UtilityClass;
 import me.mstn.desktop.MinidotCleaner;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-
-/*
-*
-* Мне стыдно за каждую написанную здесь строчку...
-*
-* */
 
 @UtilityClass
 public class ModelUtility {
@@ -38,14 +34,13 @@ public class ModelUtility {
             fileInputStream = new FileInputStream(fullPath);
             zipInputStream = new ZipInputStream(new BufferedInputStream(fileInputStream));
 
-            while((entry = zipInputStream.getNextEntry()) != null){
+            while ((entry = zipInputStream.getNextEntry()) != null) {
                 String name = entry.getName();
                 if (name.startsWith("assets/minidot/")) {
                     String[] subpaths = name.split("/");
 
                     if (subpaths.length == 4) {
                         if (whiteList.contains(subpaths[2]) && subpaths[3].endsWith(".png")) {
-                           //subpaths[2] + "/" + subpaths[3].replace(".png", "")
                             modelsList.add(entry);
                         }
                     }

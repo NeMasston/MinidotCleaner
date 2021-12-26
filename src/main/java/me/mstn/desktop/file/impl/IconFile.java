@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class IconFile implements AbstractFile {
 
@@ -40,8 +41,7 @@ public class IconFile implements AbstractFile {
                 );
             } catch (IOException e) {
                 file.delete();
-                MinidotCleaner.getLogger().severe("Failed to copy " + fileName + " file. Error: " + e.getMessage());
-                System.exit(-1);
+                MinidotCleaner.stop(Level.SEVERE, "Failed to copy " + fileName + " file. Error: " + e.getMessage());
             }
 
             fileName = "pack.png";
@@ -52,15 +52,13 @@ public class IconFile implements AbstractFile {
 
             if (bufferedImage.getHeight() != 64 || bufferedImage.getWidth() != 64) {
                 if (delete) file.delete();
-                MinidotCleaner.getLogger().severe("Failed to use icon, it must be 64x64!");
-                System.exit(-1);
+                MinidotCleaner.stop(Level.SEVERE, "Failed to use icon, it must be 64x64!");
 
                 return fileName;
             }
         } catch (IOException e) {
             if (delete) file.delete();
-            MinidotCleaner.getLogger().severe("Failed to read " + fileName + " temp file. Error: " + e.getMessage());
-            System.exit(-1);
+            MinidotCleaner.stop(Level.SEVERE, "Failed to read " + fileName + " temp file. Error: " + e.getMessage());
         }
 
         file.deleteOnExit();
@@ -69,7 +67,7 @@ public class IconFile implements AbstractFile {
     }
 
     private void copyFile(File sourceFile, File destFile) throws IOException {
-        if(!destFile.exists()) {
+        if (!destFile.exists()) {
             destFile.createNewFile();
         }
 
@@ -80,12 +78,11 @@ public class IconFile implements AbstractFile {
             source = new FileInputStream(sourceFile).getChannel();
             destination = new FileOutputStream(destFile).getChannel();
             destination.transferFrom(source, 0, source.size());
-        }
-        finally {
-            if(source != null) {
+        } finally {
+            if (source != null) {
                 source.close();
             }
-            if(destination != null) {
+            if (destination != null) {
                 destination.close();
             }
         }
