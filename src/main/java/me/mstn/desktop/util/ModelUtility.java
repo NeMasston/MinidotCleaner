@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -49,11 +50,9 @@ public class ModelUtility {
 
             zipInputStream.close();
         } catch (FileNotFoundException e) {
-            MinidotCleaner.getLogger().severe("Failed to locate extra.jar file. Error: " + e.getMessage());
-            System.exit(-1);
+            MinidotCleaner.stop(Level.SEVERE, "Failed to locate extra.jar file. Error: " + e.getMessage());
         } catch (IOException e) {
-            MinidotCleaner.getLogger().severe("Failed to open extra.jar file. Error: " + e.getMessage());
-            System.exit(-1);
+            MinidotCleaner.stop(Level.SEVERE, "Failed to open extra.jar file. Error: " + e.getMessage());
         }
 
         return modelsList;

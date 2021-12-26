@@ -40,7 +40,7 @@ public class OutputFile implements AbstractFile {
         try {
             List<String> srcFiles = Arrays.asList("pack.mcmeta", "pack.png");
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-            ;
+            
             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 
             File fileToZip = null;
