@@ -12,8 +12,8 @@ public class StartCommand implements AbstractCommand {
     public void execute(String[] args) {
         MinidotCleaner.getLogger().info("Executing START command");
 
-        new PackFile().create();
-        new IconFile().create();
+        new Thread(() -> new PackFile().create()).start();
+        new Thread(() ->  new IconFile().create()).start();
         new OutputFile().create();
     }
 

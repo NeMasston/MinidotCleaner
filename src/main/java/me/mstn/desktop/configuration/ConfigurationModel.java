@@ -2,6 +2,7 @@ package me.mstn.desktop.configuration;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.mstn.desktop.Direction;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ public class ConfigurationModel {
 
     private String path;
     private boolean inpath;
+    private Direction direction;
     private List<String> exclusions;
     private Map<String, String> resourcepack;
 

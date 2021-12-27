@@ -17,7 +17,7 @@ public class MinidotCleaner {
     private static ConfigurationModel configuration;
     @Getter
     @Setter
-    private static String extraJarPath;
+    private static String vimeWorldPath;
 
     @Getter
     private static final Logger logger = Logger.getLogger("MinidotCleaner");

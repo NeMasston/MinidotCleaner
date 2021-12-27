@@ -7,9 +7,7 @@ public class ListCommand implements AbstractCommand {
 
     @Override
     public void execute(String[] args) {
-        MinidotCleaner.getModelsList().forEach(entry -> {
-            MinidotCleaner.getLogger().info(entry.getName());
-        });
+        MinidotCleaner.getModelsList().forEach(entry -> MinidotCleaner.getLogger().info(entry.getName()));
     }
 
 }

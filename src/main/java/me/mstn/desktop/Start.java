@@ -25,8 +25,8 @@ public class Start {
         LogManager.getLogManager().reset();
         MinidotCleaner.getLogger().addHandler(new LoggerHandler());
 
-        MinidotCleaner.getLogger().info("---- STARTING MINIDOTCLEANER 1.1b ----");
-        MinidotCleaner.getLogger().info("# Find a bug? Report! https://github.com/MVSSTON/MinidotCleaner");
+        MinidotCleaner.getLogger().info("---- STARTING MINIDOTCLEANER 1.2b ----");
+        MinidotCleaner.getLogger().info("# Find a bug? Report! https://github.com/MVSSTON/MinidotCleaner/issues");
         MinidotCleaner.getLogger().info("# Contact with author - https://vk.me/masston");
         MinidotCleaner.getLogger().info("--------------------------------------");
         MinidotCleaner.getLogger().info("");
@@ -45,15 +45,13 @@ public class Start {
         MinidotCleaner.setConfiguration(configuration);
 
         String userName = System.getProperty("user.name");
-        MinidotCleaner.setExtraJarPath(
-                configuration.getPath()
-                        .replace("@user", userName)
-                        + "\\1.8.8\\extra.jar"
-        );
+        String vimeWorldPath = configuration.getPath()
+                .replace("@user", userName);
+        MinidotCleaner.setVimeWorldPath(vimeWorldPath);
 
         MinidotCleaner.getModelsList().addAll(
                 ModelUtility.getModelsList(
-                        MinidotCleaner.getExtraJarPath()
+                        vimeWorldPath + configuration.getDirection().getMinidotPath()
                 )
         );
 

@@ -24,10 +24,9 @@ public class OutputFile implements AbstractFile {
         if (!output.endsWith(".zip")) output += ".zip";
 
         if (configuration.isInpath()) {
-            String userName = System.getProperty("user.name");
-            output = configuration.getPath()
-                    .replace("@user", userName)
-                    + "\\minigames\\resourcepacks\\"
+            output = MinidotCleaner.getVimeWorldPath()
+                    + configuration.getDirection().getResourcepacksPath()
+                    + "\\"
                     + output;
         }
 
@@ -40,7 +39,7 @@ public class OutputFile implements AbstractFile {
         try {
             List<String> srcFiles = Arrays.asList("pack.mcmeta", "pack.png");
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-            
+
             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 
             File fileToZip = null;
@@ -78,7 +77,7 @@ public class OutputFile implements AbstractFile {
 
             MinidotCleaner.getLogger().info("");
             if (MinidotCleaner.getConfiguration().isInpath()) {
-                MinidotCleaner.getLogger().info("Resourcepack saved to .vimeworld/minigames/resourcepacks");
+                MinidotCleaner.getLogger().info("Resourcepack saved to VimeWorld Resourcepacks Path");
             } else {
                 MinidotCleaner.getLogger().info("Resourcepack saved in this directory");
             }

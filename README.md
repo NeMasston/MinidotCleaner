@@ -20,6 +20,11 @@ path: 'C:\Users\@user\AppData\Roaming\.vimeworld'
 # false - сохранять ресурспак в этой же папке
 inpath: true
 
+# Сервер для которого генерируется ресурспак
+# MINIGAMES, EXPLORE, DISCOVER, FLAIR, EMPIRE, WURST, HODEN
+# Идея: @CharkosOff <3
+direction: MINIGAMES
+
 # Исключения (какие персонализации оставить)
 # Названия персонализаций можно посмотреть вызвав программу с параметром --list или запустив файл list.bat
 # java -jar MinidotCleaner.jar --list
