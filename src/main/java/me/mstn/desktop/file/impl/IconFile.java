@@ -35,10 +35,7 @@ public class IconFile implements AbstractFile {
 
         if (!file.exists()) {
             try {
-                copyFile(
-                        new File(fileName),
-                        file
-                );
+                copyFile(new File(fileName), file);
             } catch (IOException e) {
                 file.delete();
                 MinidotCleaner.stop(Level.SEVERE, "Failed to copy " + fileName + " file. Error: " + e.getMessage());
