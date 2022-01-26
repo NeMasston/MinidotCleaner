@@ -3,7 +3,7 @@ package me.mstn.desktop;
 import me.mstn.desktop.command.AbstractCommand;
 import me.mstn.desktop.command.impl.ListCommand;
 import me.mstn.desktop.command.impl.StartCommand;
-import me.mstn.desktop.configuration.ConfigurationModel;
+import me.mstn.desktop.configuration.CleanerConfiguration;
 import me.mstn.desktop.util.ModelUtility;
 import me.mstn.desktop.util.logger.LoggerHandler;
 import org.yaml.snakeyaml.Yaml;
@@ -25,14 +25,14 @@ public class Start {
         LogManager.getLogManager().reset();
         MinidotCleaner.getLogger().addHandler(new LoggerHandler());
 
-        MinidotCleaner.getLogger().info("---- STARTING MINIDOTCLEANER 1.2b ----");
+        MinidotCleaner.getLogger().info("---- STARTING MINIDOTCLEANER 1.3b ----");
         MinidotCleaner.getLogger().info("# Find a bug? Report! https://github.com/MVSSTON/MinidotCleaner/issues");
-        MinidotCleaner.getLogger().info("# Contact with author - https://vk.me/masston");
+        MinidotCleaner.getLogger().info("# Contact with author - https://t.me/masston");
         MinidotCleaner.getLogger().info("--------------------------------------");
         MinidotCleaner.getLogger().info("");
 
         Path path = Paths.get("./config.yml");
-        Constructor configurationModel = new Constructor(ConfigurationModel.class);
+        Constructor configurationModel = new Constructor(CleanerConfiguration.class);
         Yaml yaml = new Yaml(configurationModel);
 
         if (!path.toFile().exists()) {
@@ -41,7 +41,7 @@ public class Start {
             MinidotCleaner.stop(Level.INFO, "Configuration file has been created, close the program and configure it or start the program again.");
         }
 
-        ConfigurationModel configuration = yaml.load(new FileInputStream(path.toFile()));
+        CleanerConfiguration configuration = yaml.load(new FileInputStream(path.toFile()));
         MinidotCleaner.setConfiguration(configuration);
 
         String userName = System.getProperty("user.name");

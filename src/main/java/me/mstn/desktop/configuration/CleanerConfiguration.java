@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class ConfigurationModel {
+public class CleanerConfiguration {
 
     private String path;
     private boolean inpath;

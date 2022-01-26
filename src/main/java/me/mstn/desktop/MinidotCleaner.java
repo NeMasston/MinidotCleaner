@@ -2,7 +2,7 @@ package me.mstn.desktop;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.mstn.desktop.configuration.ConfigurationModel;
+import me.mstn.desktop.configuration.CleanerConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class MinidotCleaner {
 
     @Getter
     @Setter
-    private static ConfigurationModel configuration;
+    private static CleanerConfiguration configuration;
     @Getter
     @Setter
     private static String vimeWorldPath;

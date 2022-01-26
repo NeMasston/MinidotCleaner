@@ -1,9 +1,9 @@
 package me.mstn.desktop.file.impl;
 
 import me.mstn.desktop.MinidotCleaner;
-import me.mstn.desktop.configuration.ConfigurationModel;
+import me.mstn.desktop.configuration.CleanerConfiguration;
 import me.mstn.desktop.file.AbstractFile;
-import sun.misc.IOUtils;
+import me.mstn.desktop.util.FileUtility;
 
 import java.io.*;
 import java.util.*;
@@ -16,7 +16,7 @@ public class OutputFile implements AbstractFile {
     private final String fileName;
 
     public OutputFile() {
-        ConfigurationModel configuration = MinidotCleaner.getConfiguration();
+        CleanerConfiguration configuration = MinidotCleaner.getConfiguration();
 
         Map<String, String> resourcepack = configuration.getResourcepack();
         String output = resourcepack.get("output");
@@ -66,7 +66,7 @@ public class OutputFile implements AbstractFile {
                 if (!MinidotCleaner.getConfiguration().getExclusions().contains(entry.getName())) {
                     zipOutputStream.putNextEntry(zipEntry);
                     InputStream nullImage = getClass().getClassLoader().getResourceAsStream("null.png");
-                    byte[] data = IOUtils.readNBytes(nullImage, nullImage.available());
+                    byte[] data = FileUtility.readNBytes(nullImage, nullImage.available());
                     zipOutputStream.write(data, 0, data.length);
                     zipOutputStream.closeEntry();
                 }
